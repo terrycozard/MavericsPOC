@@ -1,0 +1,108 @@
+{
+  "appgateways": [
+    {
+      "attrProviders": [],
+      "basePath": "/",
+      "errorPage": "https://maverics.sonarsystems.com/error",
+      "flowName": "LDAP as IDP",
+      "host": "",
+      "name": "sonar-HR",
+      "policies": [
+        {
+          "authentication": {
+            "idps": [
+              "ldap-idp"
+            ]
+          },
+          "authorization": {
+            "allowAll": true
+          },
+          "location": "/"
+        }
+      ],
+      "preserveHost": false,
+      "type": "header",
+      "unauthorizedPage": "https://maverics.sonarsystems.com/notallowed",
+      "upstream": "https://sonar.stratademo.io"
+    }
+  ],
+  "caches": [
+    {
+      "encryption": {
+        "keys": {
+          "current": "",
+          "old": null
+        }
+      },
+      "name": "",
+      "redis": {
+        "addresses": null,
+        "password": "",
+        "username": ""
+      },
+      "tls": "",
+      "type": ""
+    }
+  ],
+  "connectors": [
+    {
+      "authenticationSearchScope": "wholeSubtree",
+      "baseDN": "ou=People,dc=sonarsystems,dc=com",
+      "enableAuthentication": true,
+      "key": "ldap_idp",
+      "name": "ldap-idp",
+      "serviceAccountPassword": "\u003cldap_password\u003e",
+      "serviceAccountUsername": "cn=admin,dc=sonarsystems,dc=com",
+      "type": "ldap",
+      "url": "ldap://ldap.sonarsystems.com:389",
+      "usernameSearchKey": "mail"
+    }
+  ],
+  "session": {
+    "cookie": {
+      "domain": "sonarsystems.com"
+    },
+    "maxLifetimeSeconds": 0
+  },
+  "telemetry": {
+    "exporters": {
+      "otlp/health": {
+        "protocols": {
+          "http": {
+            "endpoint": "insights-api.strata.io",
+            "headers": {
+              "x-api-key": "YjZiYTE4OTctNDA2YS00OWZkLWEwMzQtMTRiYjQ5MDc4YTZj.8f6UKaJnM6FtDP97LRePjg"
+            },
+            "insecure": false,
+            "urlPath": "/insights/health"
+          }
+        }
+      },
+      "otlp/metrics": {
+        "protocols": {
+          "http": {
+            "endpoint": "insights-api.strata.io",
+            "headers": {
+              "x-api-key": "YjZiYTE4OTctNDA2YS00OWZkLWEwMzQtMTRiYjQ5MDc4YTZj.8f6UKaJnM6FtDP97LRePjg"
+            },
+            "insecure": false,
+            "urlPath": "/insights/metrics"
+          }
+        }
+      }
+    },
+    "health": {
+      "enabled": true,
+      "exporter": "otlp/health"
+    },
+    "metrics": {
+      "enabled": false,
+      "exporter": "otlp/metrics",
+      "interval": "1m"
+    }
+  },
+  "tls": {
+    "": ""
+  },
+  "version": 6
+}
